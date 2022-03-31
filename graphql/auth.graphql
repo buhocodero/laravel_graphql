@@ -80,3 +80,21 @@ input UpdatePassword {
     password: String! @rules(apply: ["required", "confirmed", "min:8"])
     password_confirmation: String!
 }
+input CreateSucursal{
+    name: String!
+    location: String!
+}
+input EditSucursal {
+    id: ID!
+    name: String
+    location: String
+}
+input DeleteSucursal {
+    id: ID!
+    name: String
+}
+extend type Mutation @guard {
+    registerSucursal(input: CreateSucursal @spread): Sucursal @create
+    updateSucursal(input: EditSucursal @spread): Sucursal @update
+    deleteSucursal(input: DeleteSucursal! @spread): Sucursal @delete
+}
